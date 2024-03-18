@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Person : MonoBehaviour
+[System.Serializable]
+public class Person
 {
     public string firstName;
     public string lastName;
@@ -10,13 +11,14 @@ public class Person : MonoBehaviour
     public Gender gender;
 
     // ENCAPSULATION
+    [SerializeField]
     private int _age;
     public int age
     {
         get { return _age; }
         set
         {
-            if (age < 0)
+            if (value < 0)
             {
                 Debug.LogError("Age cannot be negative");
             }
@@ -29,17 +31,28 @@ public class Person : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    GameObject figure;
+
     // ABSTRACTION
-    public virtual void Walk()
+    public virtual string Walk()
     {
-        Debug.Log("Walking");
+        return "Walking";
     }
-    public virtual void Talk()
+    public virtual string Talk()
     {
-        Debug.Log("Talking");
+        return "Talking";
     }
-    public virtual void Sing()
+    public virtual string Sing()
     {
-        Debug.Log("Singing");
+        return "Singing";
+    }
+
+    public Person(string firstName, string lastName, Gender gender, int age)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.age = age;
     }
 }
